@@ -1,0 +1,139 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Biblio_classe
+{
+    /// <summary>
+    /// Contexte de base de données principal pour l'application Todo
+    /// Hérite de DbContext pour gérer les opérations de base de données
+    /// </summary>
+    public class ApplicationDbContext : DbContext
+    {
+        /// <summary>
+        /// Constructeur par défaut - utilisé quand le contexte est instancié directement
+        /// sans injection de dépendances
+        /// </summary>
+        public ApplicationDbContext()
+        {
+        }
+
+        /// <summary>
+        /// Constructeur avec options - utilisé avec l'injection de dépendances
+        /// Permet de configurer le contexte depuis l'extérieur (ex: Program.cs)
+        /// </summary>
+        /// <param name="options">Options de configuration du contexte</param>
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
+
+        // ===== DÉFINITION DES TABLES DE BASE DE DONNÉES =====
+        // Chaque DbSet représente une table dans la base de données
+        // Entity Framework génère automatiquement les requêtes SQL pour ces propriétés
+
+        /// <summary>
+        /// Table des utilisateurs - représente la table Users en base de données
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Table des projets - représente la table Projects en base de données
+        /// </summary>
+        public DbSet<Project> Projects { get; set; }
+
+        /// <summary>
+        /// Table des tâches - représente la table Tasks en base de données
+        /// </summary>
+        public DbSet<Task> Tasks { get; set; }
+
+        /// <summary>
+        /// Configuration de la connexion à la base de données
+        /// Cette méthode est appelée automatiquement par Entity Framework
+        /// </summary>
+        /// <param name="optionsBuilder">Builder pour configurer les options de connexion</param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    "Server=(localdb)\\MSSQLLocalDB;Database=TodoDb;Trusted_Connection=True;TrustServerCertificate=True;");
+            }
+        }
+
+
+        /// <summary>
+        /// Configuration avancée du modèle de données
+        /// Cette méthode permet de définir les relations, contraintes et règles de validation
+        /// </summary>
+        /// <param name="modelBuilder">Builder pour configurer le modèle de données</param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Appel de la méthode de base pour initialiser la configuration
+            base.OnModelCreating(modelBuilder);
+
+            // ===== CONFIGURATION DES RELATIONS ENTRE ENTITÉS =====
+
+            // Relation Task -> Project (Plusieurs tâches peuvent appartenir à un projet)
+            modelBuilder.Entity<Task>()
+                .HasOne(t => t.Project)           // Une tâche a un projet
+                .WithMany(p => p.Tasks)           // Un projet a plusieurs tâches
+                .HasForeignKey(t => t.ProjectId)  // Clé étrangère ProjectId
+                .OnDelete(DeleteBehavior.Cascade); // Si on supprime un projet, supprimer ses tâches
+
+            // Relation Task -> User (Plusieurs tâches peuvent être assignées à un utilisateur)
+            modelBuilder.Entity<Task>()
+                .HasOne(t => t.User)              // Une tâche peut avoir un utilisateur assigné
+                .WithMany(u => u.Tasks)           // Un utilisateur peut avoir plusieurs tâches
+                .HasForeignKey(t => t.UserId)     // Clé étrangère UserId
+                .OnDelete(DeleteBehavior.SetNull); // Si on supprime un utilisateur, mettre UserId à null
+
+            // ===== CONFIGURATION DES CONTRAINTES =====
+
+            // Contrainte d'unicité sur l'email des utilisateurs
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)           // Créer un index sur la colonne Email
+                .IsUnique();                      // L'index doit être unique (pas de doublons)
+
+            // ===== CONFIGURATION DES LONGUEURS DE COLONNES =====
+            // Ces configurations sont redondantes avec les attributs [MaxLength] 
+            // mais permettent une configuration centralisée et plus flexible
+
+            // Configuration des colonnes de l'entité User
+            modelBuilder.Entity<User>()
+                .Property(u => u.Nom)
+                .HasMaxLength(80);                // Nom limité à 80 caractères
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Prenom)
+                .HasMaxLength(80);                // Prénom limité à 80 caractères
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .HasMaxLength(100);               // Email limité à 100 caractères
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.MotDePasse)
+                .HasMaxLength(40);                // Mot de passe limité à 40 caractères
+
+            // Configuration des colonnes de l'entité Project
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Titre)
+                .HasMaxLength(100);               // Titre limité à 100 caractères
+
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Description)
+                .HasMaxLength(512);               // Description limitée à 512 caractères
+
+            // Configuration des colonnes de l'entité Task
+            modelBuilder.Entity<Task>()
+                .Property(t => t.Titre)
+                .HasMaxLength(100);               // Titre limité à 100 caractères
+
+            modelBuilder.Entity<Task>()
+                .Property(t => t.Description)
+                .HasMaxLength(512);               // Description limitée à 512 caractères
+
+            modelBuilder.Entity<Task>()
+                .Property(t => t.Etat)
+                .HasMaxLength(50);                // État limité à 50 caractères
+        }
+    }
+}

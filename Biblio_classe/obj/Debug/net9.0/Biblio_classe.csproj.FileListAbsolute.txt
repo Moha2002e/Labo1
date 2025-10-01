@@ -1,0 +1,14 @@
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\bin\Debug\net9.0\Biblio_classe.deps.json
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\bin\Debug\net9.0\Biblio_classe.runtimeconfig.json
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\bin\Debug\net9.0\Biblio_classe.dll
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\bin\Debug\net9.0\Biblio_classe.pdb
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.csproj.AssemblyReference.cache
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.AssemblyInfoInputs.cache
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.AssemblyInfo.cs
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.csproj.CoreCompileInputs.cache
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.dll
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\refint\Biblio_classe.dll
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.pdb
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\Biblio_classe.genruntimeconfig.cache
+C:\Users\MohammedE\Documents\Cours\Dev_Objet_Avance_CSharp\Projets\Projet1\Biblio_classe\obj\Debug\net9.0\ref\Biblio_classe.dll
